@@ -26,9 +26,10 @@ def predict():
     print(request.files)
     file = request.files['file']
     print(file.filename)
-    file.filename="our.jpg"
-    print(file.filename)
-    print(file.filename)
+    #file.filename="our.jpg"
+    #print(file.filename)
+    #print(file.filename)
+    print("testing")
     file.save(file.filename)
     testimage = scipy.misc.imresize(scipy.misc.imread(file),(150,150))
     print(testimage.shape)
@@ -36,7 +37,7 @@ def predict():
     testimage = testimage.reshape((1,) + testimage.shape)
     prediction = loaded_model.predict(testimage).astype(float)
     print(prediction)
-    return jsonify({ 'classification': { 'cat': prediction[0][0], 'dog' : 1-prediction[0][0]} })
+    return jsonify({ 'classification': { 'dog': prediction[0][0], 'cat' : 1-prediction[0][0]} })
     #return json.dump({ 'classification': { 'cat': prediction[0][0], 'dog' : 1-prediction[0][0]} })
 
 if __name__ == '__main__':
